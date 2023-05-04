@@ -26,7 +26,7 @@ public class PointPolicyTest {
         int period = 3;
 
         when(policyHolder.getPointUsagePeriod()).thenReturn(period);
-        LocalDateTime expireDate = policy.getExpirationDate();
+        LocalDateTime expireDate = policy.getExpirationDate(null);
 
 //        assertThat(expireDate).isEqualTo(addDay(period));
     }

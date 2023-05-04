@@ -6,6 +6,7 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "orderId": 1,
+  "expirationDate" : "2023-05-04 23:59:59",
   "point": 1000
 }
 

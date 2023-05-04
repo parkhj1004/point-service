@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingLong;
@@ -24,6 +25,7 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpt
 import static org.point.meta.PointActionType.SAVE;
 import static org.point.meta.PointActionType.USE;
 import static org.point.meta.PointActionType.isPlus;
+import static org.point.utils.DateUtils.format;
 import static org.point.utils.DateUtils.getLocalDateTimeAddDay;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -34,8 +36,8 @@ public class PointPolicy {
 
     private final PointPolicyHolder policyHolder;
 
-    public LocalDateTime getExpirationDate() {
-        return getLocalDateTimeAddDay(policyHolder.getPointUsagePeriod());
+    public LocalDateTime getExpirationDate(String expirationDate) {
+        return isNull(expirationDate) ? getLocalDateTimeAddDay(policyHolder.getPointUsagePeriod()) : format(expirationDate);
     }
 
     public Map<PointActionType, Map<Long, Long>> getPointsMapById (List<UsedPoint> pointLogs) {
@@ -52,14 +54,6 @@ public class PointPolicy {
         pointsMapById.put(USE, usedPoints);
 
         return pointsMapById;
-    }
-
-    public boolean hasAvailablePoints (Map<Long, Long> savedPoints, Map<Long, Long> usedPoint, Long usePoint) {
-        if(isEmpty(savedPoints)) {
-            return false;
-        }
-
-        return hasAvailablePoints(getSumByPointId(savedPoints, usedPoint), usePoint);
     }
 
     public boolean hasAvailablePoints(Map<Long, Long> sumByPointId, Long usePoint) {

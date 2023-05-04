@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
-import static java.util.Collections.singletonList;
 import static java.util.Objects.isNull;
 import static org.point.meta.ResultCode.FAIL_SAVED_POINT;
 import static org.point.meta.ResultCode.SUCCESS_SAVED_POINT;
@@ -25,7 +24,7 @@ public class PointSaveService implements Integrator {
     @Override
     public ResultDto integrate(Long memberId, Point point) {
         PointEntity entity = PointEntity.of(memberId, true, point);
-        entity.setExpirationDate(pointPolicy.getExpirationDate());
+        entity.setExpirationDate(pointPolicy.getExpirationDate(point.getExpirationDate()));
 
         PointEntity pointEntity = pointProvider.savePoint(entity);
 

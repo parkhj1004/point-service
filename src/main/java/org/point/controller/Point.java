@@ -13,5 +13,7 @@ public class Point {
     private Set<Long> usedPointIds;
     private PointActionType pointActionType;
     private Long point;
+
+    private String expirationDate;
 }
 
