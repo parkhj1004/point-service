@@ -1,5 +1,5 @@
 
 # 포인트 리스트
-GET http://localhost:8080/points?pageNumber=5&sizePerPage=2
+GET http://localhost:8080/points?pageNumber=1&sizePerPage=20
 Accept: application/json;charset=UTF-8
 memberId: 3444

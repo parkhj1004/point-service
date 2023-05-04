@@ -14,22 +14,12 @@ import static java.time.LocalDateTime.now;
 import static org.point.domain.repository.entity.QPointEntity.pointEntity;
 import static org.point.domain.repository.entity.QPointLogEntity.pointLogEntity;
 import static org.point.meta.PointActionType.SAVE;
-import static org.point.meta.PointActionType.USED;
+import static org.point.meta.PointActionType.USE;
 
 @RequiredArgsConstructor
 @Repository
 public class PointQueryDslRepository {
     private final JPAQueryFactory jpaQueryFactory;
-
-    public Long findRemainingPointByMemberId(Long memberId) {
-        return jpaQueryFactory.select(pointEntity.point.add(pointLogEntity.point).sum())
-                .from(pointEntity)
-                .innerJoin(pointLogEntity)
-                .on(pointEntity.id.eq(pointLogEntity.usedPointId))
-                .where(pointEntity.memberId.eq(memberId))
-                .where(pointActionType(SAVE))
-                .fetchOne();
-    }
 
     public List<UsedPoint> findValidPointsByMemberId(Long memberId) {
 
@@ -43,7 +33,7 @@ public class PointQueryDslRepository {
                 ))
                 .from(pointEntity)
                 .leftJoin(pointLogEntity)
-                .on(pointEntity.id.eq(pointLogEntity.usedPointId).and(pointLogEntity.pointActionType.eq(PointActionType.USED)))
+                .on(pointEntity.id.eq(pointLogEntity.usedPointId).and(pointLogEntity.pointActionType.eq(PointActionType.USE)))
                 .where(memberId(memberId))
                 .where(pointActionType(SAVE))
                 .where(pointEntity.expirationDate.goe(now()))
@@ -62,7 +52,7 @@ public class PointQueryDslRepository {
                 ))
                 .from(pointEntity)
                 .where(memberId(memberId))
-                .where(pointEntity.pointActionType.in(SAVE, USED))
+                .where(pointEntity.pointActionType.in(SAVE, USE))
                 .orderBy(pointEntity.id.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

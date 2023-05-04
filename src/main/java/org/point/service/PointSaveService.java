@@ -8,6 +8,8 @@ import org.point.policy.PointPolicy;
 import org.point.provider.PointProvider;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 import static java.util.Collections.singletonList;
 import static java.util.Objects.isNull;
 import static org.point.meta.ResultCode.FAIL_SAVED_POINT;
@@ -31,6 +33,6 @@ public class PointSaveService implements Integrator {
             return ResultDto.of(FAIL_SAVED_POINT, point.getOrderId(), null);
         }
 
-        return ResultDto.of(SUCCESS_SAVED_POINT, point.getOrderId(), singletonList(pointEntity.getPoint()));
+        return ResultDto.of(SUCCESS_SAVED_POINT, point.getOrderId(), new HashSet<>(){{add(pointEntity.getId());}});
     }
 }

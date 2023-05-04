@@ -12,7 +12,7 @@ import java.util.EnumSet;
 @RequiredArgsConstructor
 public enum PointActionType {
     SAVE("적립", PointSaveService.class),
-    USED("사용", PointUseService.class),
+    USE("사용", PointUseService.class),
     CANCEL("취소", PointCancelService.class)
     ;
 

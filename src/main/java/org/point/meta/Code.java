@@ -9,6 +9,7 @@ public enum Code {
     S_3000,
     F_3000,
     F_3100,
+    F_3200,
     E_1000,
     NO_DATA,
 }

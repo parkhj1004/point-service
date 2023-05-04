@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.summingLong;
 import static java.util.stream.Collectors.toMap;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static org.point.meta.PointActionType.SAVE;
-import static org.point.meta.PointActionType.USED;
+import static org.point.meta.PointActionType.USE;
 import static org.point.meta.PointActionType.isPlus;
 import static org.point.utils.DateUtils.getLocalDateTimeAddDay;
 import static org.springframework.util.CollectionUtils.isEmpty;
@@ -49,7 +49,7 @@ public class PointPolicy {
                 .collect(groupingBy(UsedPoint::getUsedPointId, summingLong(UsedPoint::getUsedPoint)));
 
         pointsMapById.put(SAVE, savedPoints);
-        pointsMapById.put(USED, usedPoints);
+        pointsMapById.put(USE, usedPoints);
 
         return pointsMapById;
     }
@@ -83,9 +83,9 @@ public class PointPolicy {
         for(Long pointId : sumByPointId.keySet()) {
             if(sumByPointId.get(pointId) < usePoint) {
                 usePoint -= sumByPointId.get(pointId);
-                pointLogEntities.add(PointLogEntity.of(pointId, point.getOrderId(), USED, pointCalculator(sumByPointId.get(pointId), USED), pointId));
+                pointLogEntities.add(PointLogEntity.of(pointId, point.getOrderId(), USE, pointCalculator(sumByPointId.get(pointId), USE), pointId));
             } else {
-                pointLogEntities.add(PointLogEntity.of(pointId, point.getOrderId(), USED, pointCalculator(usePoint, USED)));
+                pointLogEntities.add(PointLogEntity.of(pointId, point.getOrderId(), USE, pointCalculator(usePoint, USE)));
                 return pointLogEntities;
             }
         }
@@ -98,6 +98,6 @@ public class PointPolicy {
     }
 
     public boolean isValidForCancel(Point point) {
-        return nonNull(point) && nonNull(point.getOrderId()) && nonNull(point.getPointActionType());
+        return nonNull(point) && nonNull(point.getOrderId()) && nonNull(point.getPointActionType()) && isNotEmpty(point.getUsedPointIds());
     }
 }

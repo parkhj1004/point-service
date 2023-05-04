@@ -1,0 +1,12 @@
+# 포인트 취소
+POST http://localhost:8080/CANCEL/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 8,
+  "usedPointIds": [3,4]
+}
+
+###
