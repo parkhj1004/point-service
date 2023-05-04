@@ -57,3 +57,4 @@ mvnw.cmd
 /output/
 **/spring.log
 **/spring-error.log
+/.idea/
