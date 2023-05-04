@@ -1,0 +1,49 @@
+# 포인트 적립
+POST http://localhost:8080/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 1,
+  "point": 1000
+}
+
+###
+
+# 포인트 적립
+POST http://localhost:8080/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 2,
+  "point": 2000
+}
+
+###
+
+# 포인트 적립
+POST http://localhost:8080/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 3,
+  "point": 1000
+}
+
+###
+
+# 포인트 적립
+POST http://localhost:8080/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 4,
+  "point": 5000
+}

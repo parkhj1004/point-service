@@ -1,0 +1,51 @@
+###
+
+# 포인트 사용
+POST http://localhost:8080/USED/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 5,
+  "point": 500
+}
+
+###
+
+# 포인트 사용
+POST http://localhost:8080/USED/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 6,
+  "point": 1000
+}
+
+###
+
+# 포인트 사용
+POST http://localhost:8080/USED/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 7,
+  "point": 2000
+}
+
+###
+
+# 포인트 사용
+POST http://localhost:8080/USED/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 8,
+  "point": 3000
+}
