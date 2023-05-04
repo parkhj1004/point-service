@@ -1,0 +1,59 @@
+# package files
+*.jar
+*.war
+*.ear
+
+# maven
+target
+.mvn/
+
+# gradle
+**/.gradle/
+**/build/
+**/classes/
+
+HELP.md
+.gradle
+build/**
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+classes/**
+bin/**
+
+/abtest-web/src/main/resources/static/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.class
+out/
+mvnw
+mvnw.cmd
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### generated ###
+**/generated
+/output/
+**/spring.log
+**/spring-error.log
