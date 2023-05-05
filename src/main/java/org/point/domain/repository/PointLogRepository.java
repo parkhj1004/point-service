@@ -14,7 +14,7 @@ import java.util.Set;
 @Repository
 public interface PointLogRepository extends JpaRepository<PointLogEntity, Long> {
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update PointLogEntity p set p.pointActionType = :pointActionType, p.modifiedDate = :modifiedDate where p.orderId = :orderId and p.usedPointId in :usedPointIds")
     int updateActionTypeByOrderIdUsedPointIdsIn(@Param("pointActionType") PointActionType pointActionType, @Param("modifiedDate") LocalDateTime modifiedDate, @Param("orderId") Long orderId, @Param("usedPointIds") Set<Long> usedPointIds);
 }

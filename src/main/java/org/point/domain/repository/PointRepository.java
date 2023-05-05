@@ -14,11 +14,11 @@ import java.util.Set;
 @Repository
 public interface PointRepository extends JpaRepository<PointEntity, Long> {
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update PointEntity p set p.hasRemainingPoints = :hasRemainingPoints, p.modifiedDate = :modifiedDate where p.id in :usedUpPointIds")
     int updateHasRemainingPointByIdIn(@Param("hasRemainingPoints") boolean hasRemainingPoints, @Param("modifiedDate") LocalDateTime modifiedDate, @Param("usedUpPointIds") Set<Long> usedUpPointIds);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update PointEntity p set p.pointActionType = :pointActionType, p.modifiedDate = :modifiedDate  where p.orderId = :orderId")
     int updatePointActionTypeByOrderId(@Param("pointActionType") PointActionType pointActionType, @Param("modifiedDate") LocalDateTime modifiedDate, @Param("orderId") Long orderId);
 

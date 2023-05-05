@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 import static java.util.Objects.isNull;
@@ -57,23 +58,39 @@ public class PointPolicy {
     }
 
     public boolean hasAvailablePoints(Map<Long, Long> sumByPointId, Long usePoint) {
-        return isNotEmpty(sumByPointId) && usePoint <= sumByPointId.values().stream().mapToLong(Long::longValue).sum();
+        return isNotEmpty(sumByPointId) && usePoint <= sumByPointId.values().stream().filter(Objects::nonNull).mapToLong(Long::longValue).sum();
     }
 
     public Map<Long, Long> getSumByPointId(Map<Long, Long> savedPoints, Map<Long, Long> usedPoint) {
+        if(isEmpty(savedPoints)) {
+            return new TreeMap<>();
+        }
+
         Map<Long, Long> combinedMap = new TreeMap<>(savedPoints);
+        if(isEmpty(usedPoint)) {
+            return combinedMap;
+        }
+
         usedPoint.forEach((key, value) -> combinedMap.merge(key, value, Long::sum));
 
         return combinedMap;
     }
 
     public Long pointCalculator(Long point, PointActionType pointActionType) {
+        if(isNull(point) || isNull(pointActionType)) {
+            return 0L;
+        }
+
         return isPlus(pointActionType) ? point : point * -1;
     }
 
     public List<PointLogEntity> getUsePoints(Map<Long, Long> sumByPointId, Point point) {
-        Long usePoint = point.getPoint();
         List<PointLogEntity> pointLogEntities = new ArrayList<>();
+        if(isEmpty(sumByPointId) || isNull(point) || isNull(point.getPoint())) {
+            return pointLogEntities;
+        }
+
+        Long usePoint = point.getPoint();
         for(Long pointId : sumByPointId.keySet()) {
             if(sumByPointId.get(pointId) < usePoint) {
                 usePoint -= sumByPointId.get(pointId);
