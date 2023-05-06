@@ -8,7 +8,8 @@
 3. 회원의 포인트를 적립하는 API <br>
     적립하는 포인트의 사용가능 기간은 1 년입니다.  <br>
     => TestCase > 포인트적립.http <br>
-    => resource > application.yml 파일에 point.policy.point-usage-period 설정 값을 가져오도록 함.(테스트를 위해서 3일로 설정함)
+    => resource > application-local.yml (application-prod.yml) 파일에 point.policy.point-usage-period 설정 값을 가져오도록 함.
+    => active profile 없을 경우 기본 값 : local
 4. 회원의 포인트를 사용하는 API <br>
     => TestCase > 포인트사용.http <br>
     => response 에 pointIds 값을 5번 사용취소 처리 시 필요 함. <br>
@@ -34,6 +35,8 @@
    5. 취소 할 경우 point, pointLog 테이블에 업데이트 처리하여 유효기간을 그대로 사용한다.
    또한, 취소 처리 시 포인트 사용시 전달 한 포인트 아이디를 다시 전달해야 한다. 
    잘못 전달 될 경우 취소처리 실패 한다.
+   6. yml 을 local, prod 로 구성하여 나누었음. 실제로 운영 시에는 각 yml 설정을 다르게 하나
+   해당 프로젝트에는 같은 값으로 설정 함.
 
 # 검증
 1. *.http 실행 시 *.json 파일에서 데이타 확인 가능 함. 

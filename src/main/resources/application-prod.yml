@@ -26,4 +26,4 @@ logging.level:
 
 point:
   policy:
-    point-usage-period: 3
+    point-usage-period: 365
