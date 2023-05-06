@@ -1,23 +1,23 @@
 # 요구사항 구현 여부
-1. 회원의 잔여 포인트를 조회하는 API
-   => TestCase > 잔여포인트조회.http
-2. 회원의 포인트 적립/사용 내역을 조회하는 API
-    페이징 처리가 되어야 합니다.
-    사용 취소된 내역은 조회되지 않아야 합니다.
-   => TestCase > 포인트리스트.http
-3. 회원의 포인트를 적립하는 API
-    적립하는 포인트의 사용가능 기간은 1 년입니다. 
-    => TestCase > 포인트적립.http
+1. 회원의 잔여 포인트를 조회하는 API <br>
+   => TestCase > 잔여포인트조회.http <br>
+2. 회원의 포인트 적립/사용 내역을 조회하는 API <br>
+    페이징 처리가 되어야 합니다. <br>
+    사용 취소된 내역은 조회되지 않아야 합니다. <br>
+   => TestCase > 포인트리스트.http <br>
+3. 회원의 포인트를 적립하는 API <br>
+    적립하는 포인트의 사용가능 기간은 1 년입니다.  <br>
+    => TestCase > 포인트적립.http <br>
     => resource > application.yml 파일에 point.policy.point-usage-period 설정 값을 가져오도록 함.(테스트를 위해서 3일로 설정함)
-4. 회원의 포인트를 사용하는 API
-    => TestCase > 포인트사용.http
-    => response 에 pointIds 값을 5번 사용취소 처리 시 필요 함. 
-5. 회원의 포인트 사용을 취소하는 API
-    포인트 사용 api 호출하는 쪽에서 rollback 처리를 위한 용도입니다.
-    => TestCase > 포인트취소.http
-    => 주문 실패로 인하여 사용 포인트 취소 목적임으로 주문번호, 사용처리 시 전달한 pointIds 를 전달해야 함.
-     잘못 전달 시 취소 처리 실패 함. 
-6. 적립,사용,취소 요청 시 포인트를 마이너스로 호출 할 경우 오류
+4. 회원의 포인트를 사용하는 API <br>
+    => TestCase > 포인트사용.http <br>
+    => response 에 pointIds 값을 5번 사용취소 처리 시 필요 함. <br>
+5. 회원의 포인트 사용을 취소하는 API <br>
+    포인트 사용 api 호출하는 쪽에서 rollback 처리를 위한 용도입니다. <br>
+    => TestCase > 포인트취소.http <br>
+    => 주문 실패로 인하여 사용 포인트 취소 목적임으로 주문번호, 사용처리 시 전달한 pointIds 를 전달해야 함. <br>
+     잘못 전달 시 취소 처리 실패 함. <br>
+6. 적립,사용,취소 요청 시 포인트를 마이너스로 호출 할 경우 오류 <br>
 
 # 구현 방법
 1. java, gradle, spring boot, jpa, queryDsl, h2 사용하여 처리 함.
