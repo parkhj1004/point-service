@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.emptySet;
+import static org.point.meta.ResultCode.POINT_MINUS;
 import static org.point.meta.ResultCode.SERVER_ERROR;
 
 @Slf4j
@@ -53,6 +55,10 @@ public class PointController {
     public ResultDto savePoints(@RequestHeader(value = "memberId") Long memberId, @PathVariable(value = "pointActionType") PointActionType pointActionType, @RequestBody Point point) {
         point.setPointActionType(pointActionType);
         try {
+            if(pointMappingProvider.getIntegrator(pointActionType).checkPoint(point.getPoint())) {
+                return ResultDto.of(POINT_MINUS, point.getOrderId(), emptySet());
+            }
+
             return pointMappingProvider.getIntegrator(pointActionType).integrate(memberId, point);
         } catch (Exception e) {
             log.error(e.getMessage());

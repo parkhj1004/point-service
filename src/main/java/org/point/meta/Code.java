@@ -11,6 +11,7 @@ public enum Code {
     F_3100,
     F_3200,
     F_3300,
+    F_0000,
     E_1000,
     NO_DATA,
 }

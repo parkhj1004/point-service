@@ -1,0 +1,32 @@
+### 포인트 : -1000 적립 시 오류
+POST http://{{local}}/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 555
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 1,
+  "point": -500
+}
+
+### 포인트 : -1000 사용 시 오류
+POST http://{{local}}/USE/point
+Accept: application/json;charset=UTF-8
+memberId: 555
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 1,
+  "point": -500
+}
+
+### 포인트 : -1000 취소 시 오류
+POST http://{{local}}/CANCEL/point
+Accept: application/json;charset=UTF-8
+memberId: 555
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 1,
+  "point": -500
+}

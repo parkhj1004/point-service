@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import static org.point.meta.Code.E_1000;
+import static org.point.meta.Code.F_0000;
 import static org.point.meta.Code.F_1000;
 import static org.point.meta.Code.F_2000;
 import static org.point.meta.Code.F_2100;
@@ -27,6 +28,7 @@ public enum ResultCode {
     CANCEL_NON_VALID(F_3100, "취소 처리에 필요한 데이타가 부적절합니다."),
     CANCEL_INVALID_USED_POINT_INFO(F_3200, "주문정보와 포인트 사용정보가 상이하여 취소처리에 실패 했습니다."),
     FAIL_CANCEL_UPDATE(F_3300, "취소 정보 갱신에 실패 했습니다."),
+    POINT_MINUS(F_0000, "포인트는 항상 양수여야 합니다."),
     SERVER_ERROR(E_1000,"서버오류")
     ;
 
