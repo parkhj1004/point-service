@@ -92,7 +92,7 @@ public class PointPolicy {
 
         Long usePoint = point.getPoint();
         for(Long pointId : sumByPointId.keySet()) {
-            if(sumByPointId.get(pointId) < usePoint) {
+            if(sumByPointId.get(pointId) <= usePoint) {
                 usePoint -= sumByPointId.get(pointId);
                 pointLogEntities.add(PointLogEntity.of(pointId, point.getOrderId(), USE, pointCalculator(sumByPointId.get(pointId), USE), pointId));
             } else {
@@ -104,11 +104,19 @@ public class PointPolicy {
         return pointLogEntities;
     }
 
+    public boolean nonCompatibilityForCancel(Point point, List<Long> usedPointIds) {
+        return !isCompatibilityForCancel(point, usedPointIds);
+    }
+
+    private boolean isCompatibilityForCancel(Point point, List<Long> usedPointIds) {
+        return isNotEmpty(usedPointIds) && point.getUsedPointIds().containsAll(usedPointIds) && point.getUsedPointIds().size() == usedPointIds.size();
+    }
+
     public boolean nonValidForCancel(Point point) {
         return !isValidForCancel(point);
     }
 
-    public boolean isValidForCancel(Point point) {
+    private boolean isValidForCancel(Point point) {
         return nonNull(point) && nonNull(point.getOrderId()) && nonNull(point.getPointActionType()) && isNotEmpty(point.getUsedPointIds());
     }
 }

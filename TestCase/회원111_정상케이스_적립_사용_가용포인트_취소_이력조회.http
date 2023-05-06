@@ -1,0 +1,89 @@
+### 적립 된 포인트가 없음으로 response : 0
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 포인트 1000 적립 완료
+# 포인트 적립
+POST http://{{local}}/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 111
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 1,
+  "point": 1000
+}
+
+### 포인트 2000 적립 완료
+# 포인트 적립
+POST http://{{local}}/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 111
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 2,
+  "point": 2000
+}
+
+### 가용 포인트 3000 확인
+# 가용 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 1번 포인트 500원 사용 완료
+# 포인트 사용
+POST http://localhost:8080/USE/point
+Accept: application/json;charset=UTF-8
+memberId: 111
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId" : 3,
+  "point": 500
+}
+
+### 1번 포인트 500원, 2번 포인트 500원 사용
+# 포인트 사용
+POST http://localhost:8080/USE/point
+Accept: application/json;charset=UTF-8
+memberId: 111
+Content-Type: application/json;charset=UTF-8
+
+{
+"orderId" : 4,
+"point": 1000
+}
+
+### 적립 된 포인트 3000원 , 1500원 사용하여 현재 1500원 남음
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 3번 주문 취소처리 되면서 포인트 500원 다시 사용 가능
+# 포인트 취소
+POST http://{{local}}/CANCEL/point
+Accept: application/json;charset=UTF-8
+memberId: 111
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 3,
+  "usedPointIds": [1]
+}
+
+### 취소 처리 후 사용 가능한 포인트 2000원
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 최소 처리내역은 보이지 않음
+# 포인트 리스트
+GET http://{{local}}/points?pageNumber=1&sizePerPage=20
+Accept: application/json;charset=UTF-8
+memberId: 111

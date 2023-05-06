@@ -1,0 +1,24 @@
+### 주문 1에 대해서 포인트 적립
+# 포인트 적립
+POST http://{{local}}/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 1,
+  "point": 1000
+}
+
+### 주문 1에 대해서 중복 포인트 적립 > 서버 오류 발생
+# 포인트 적립
+POST http://{{local}}/SAVE/point
+Accept: application/json;charset=UTF-8
+memberId: 444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 1,
+  "point": 2000
+}
+

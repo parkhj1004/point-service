@@ -21,6 +21,22 @@ import static org.point.meta.PointActionType.USE;
 public class PointQueryDslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
+    public List<Long> findUsedPointIdsByOrderId(Long memberId, Long orderId) {
+        return jpaQueryFactory.select(
+                Projections.constructor(
+                        Long.class,
+                        pointLogEntity.usedPointId
+                ))
+                .from(pointLogEntity)
+                .innerJoin(pointEntity)
+                .on(pointLogEntity.originPointId.eq(pointEntity.id))
+                .where(memberId(memberId))
+                .where(orderId(orderId))
+                .where(pointActionType(USE))
+                .fetch();
+
+    }
+
     public List<UsedPoint> findValidPointsByMemberId(Long memberId) {
 
         return jpaQueryFactory.select(
@@ -61,6 +77,10 @@ public class PointQueryDslRepository {
 
     private BooleanExpression memberId(Long memberId) {
         return pointEntity.memberId.eq(memberId);
+    }
+
+    private BooleanExpression orderId(Long orderId) {
+        return pointEntity.orderId.eq(orderId);
     }
 
     private BooleanExpression pointActionType(PointActionType actionType) {

@@ -15,11 +15,13 @@ import java.util.Set;
 public interface PointRepository extends JpaRepository<PointEntity, Long> {
 
     @Modifying(clearAutomatically = true)
-    @Query("update PointEntity p set p.hasRemainingPoints = :hasRemainingPoints, p.modifiedDate = :modifiedDate where p.id in :usedUpPointIds")
-    int updateHasRemainingPointByIdIn(@Param("hasRemainingPoints") boolean hasRemainingPoints, @Param("modifiedDate") LocalDateTime modifiedDate, @Param("usedUpPointIds") Set<Long> usedUpPointIds);
+    @Query("update PointEntity p set p.hasRemainingPoints = :hasRemainingPoints, p.modifiedDate = :modifiedDate where p.id in :usedUpPointIds and p.memberId = :memberId")
+    int updateHasRemainingPointByIdIn(@Param("hasRemainingPoints") boolean hasRemainingPoints, @Param("modifiedDate") LocalDateTime modifiedDate,
+                                      @Param("usedUpPointIds") Set<Long> usedUpPointIds, @Param("memberId") Long memberId);
 
     @Modifying(clearAutomatically = true)
-    @Query("update PointEntity p set p.pointActionType = :pointActionType, p.modifiedDate = :modifiedDate  where p.orderId = :orderId")
-    int updatePointActionTypeByOrderId(@Param("pointActionType") PointActionType pointActionType, @Param("modifiedDate") LocalDateTime modifiedDate, @Param("orderId") Long orderId);
+    @Query("update PointEntity p set p.pointActionType = :pointActionType, p.modifiedDate = :modifiedDate  where p.orderId = :orderId and p.memberId = :memberId")
+    int updatePointActionTypeByOrderId(@Param("pointActionType") PointActionType pointActionType, @Param("modifiedDate") LocalDateTime modifiedDate,
+                                       @Param("orderId") Long orderId, @Param("memberId") Long memberId);
 
 }

@@ -1,5 +1,0 @@
-
-# 포인트 조회
-GET http://localhost:8080/remaining-point
-Accept: application/json;charset=UTF-8
-memberId: 3444

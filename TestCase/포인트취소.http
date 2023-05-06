@@ -1,0 +1,13 @@
+### 포인트 취소 처리 시에 주문 시 사용한 포인트 번호를 셋팅해야 합니다. 그렇지 않을 경우 취소처리가 정상적으로 이루어 지지 않습니다.
+#포인트 취소
+POST http://localhost:8080/CANCEL/point
+Accept: application/json;charset=UTF-8
+memberId: 3444
+Content-Type: application/json;charset=UTF-8
+
+{
+  "orderId": 8,
+  "usedPointIds": [3,4]
+}
+
+###

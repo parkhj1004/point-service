@@ -7,7 +7,9 @@ import org.point.policy.PointPolicy;
 import org.point.provider.PointProvider;
 import org.springframework.stereotype.Service;
 
-import static org.point.meta.ResultCode.CANCEL_NON_UPDATE;
+import java.util.List;
+
+import static org.point.meta.ResultCode.CANCEL_INVALID_USED_POINT_INFO;
 import static org.point.meta.ResultCode.CANCEL_NON_VALID;
 import static org.point.meta.ResultCode.SUCCESS_CANCELED_POINT;
 
@@ -24,11 +26,12 @@ public class PointCancelService implements Integrator {
             return ResultDto.of(CANCEL_NON_VALID, point.getOrderId(), null);
         }
 
-        int updatedCount = pointProvider.cancelPoint(point.getOrderId(), point.getUsedPointIds());
-        if(updatedCount > 0) {
-            return ResultDto.of(SUCCESS_CANCELED_POINT, point.getOrderId(), point.getUsedPointIds());
+        List<Long> usedPointIds = pointProvider.findUsedPointIdsByOrderId(memberId, point.getOrderId());
+        if(pointPolicy.nonCompatibilityForCancel(point, usedPointIds)) {
+            return ResultDto.of(CANCEL_INVALID_USED_POINT_INFO, point.getOrderId(), point.getUsedPointIds());
         }
 
-        return ResultDto.of(CANCEL_NON_UPDATE, point.getOrderId(), point.getUsedPointIds());
+       pointProvider.cancelPoint(memberId, point.getOrderId(), point.getUsedPointIds());
+        return ResultDto.of(SUCCESS_CANCELED_POINT, point.getOrderId(), point.getUsedPointIds());
     }
 }

@@ -25,6 +25,7 @@ import static org.point.meta.PointActionType.CANCEL;
 import static org.point.meta.PointActionType.SAVE;
 import static org.point.meta.PointActionType.USE;
 import static org.point.utils.DateUtils.getCurrentLocalDateTime;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @RequiredArgsConstructor
 @Component
@@ -54,30 +55,39 @@ public class PointProvider {
         return pointQueryDslRepository.findPointsByMemberId(memberId, pageable);
     }
 
+    public List<Long> findUsedPointIdsByOrderId(Long memberId, Long orderId) {
+        return pointQueryDslRepository.findUsedPointIdsByOrderId(memberId, orderId);
+    }
+
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public PointEntity savePoint(PointEntity entity) {
         return pointRepository.save(entity);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public List<PointLogEntity> usePoint(PointEntity pointEntity, List<PointLogEntity> entities) {
-        pointRepository.save(pointEntity);
+    public List<PointLogEntity> usePoint(PointEntity pointEntity, List<PointLogEntity> logEntities) {
+        PointEntity savedPoint = pointRepository.save(pointEntity);
 
-        Set<Long> usedUpPointIds = entities.stream().map(PointLogEntity::getUsedUpPointId).collect(Collectors.toSet());
-        pointRepository.updateHasRemainingPointByIdIn(false, getCurrentLocalDateTime(), usedUpPointIds);
+        Set<Long> usedUpPointIds = logEntities.stream().map(PointLogEntity::getUsedUpPointId).collect(Collectors.toSet());
+        pointRepository.updateHasRemainingPointByIdIn(false, getCurrentLocalDateTime(), usedUpPointIds, pointEntity.getMemberId());
 
-        List<PointLogEntity> pointLogEntities = pointLogRepository.saveAll(entities);
+        setOriginPointId(logEntities, savedPoint.getId());
+        return pointLogRepository.saveAll(logEntities);
+    }
 
-        return pointLogEntities;
+    private void setOriginPointId(List<PointLogEntity> logEntities, Long originPointId) {
+        if(isEmpty(logEntities)) {
+            return;
+        }
+
+        logEntities.forEach(entity -> entity.setOriginPointId(originPointId));
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public int cancelPoint(Long orderId, Set<Long> usedPointIds) {
-        int updateCount = pointRepository.updatePointActionTypeByOrderId(CANCEL, getCurrentLocalDateTime(), orderId);
-        updateCount += pointRepository.updateHasRemainingPointByIdIn(true, getCurrentLocalDateTime(), usedPointIds);
-        updateCount += pointLogRepository.updateActionTypeByOrderIdUsedPointIdsIn(CANCEL, getCurrentLocalDateTime(), orderId, usedPointIds);
-
-        return updateCount;
+    public void cancelPoint(Long memberId, Long orderId, Set<Long> usedPointIds) {
+        pointRepository.updatePointActionTypeByOrderId(CANCEL, getCurrentLocalDateTime(), orderId, memberId);
+        pointRepository.updateHasRemainingPointByIdIn(true, getCurrentLocalDateTime(), usedPointIds, memberId);
+        pointLogRepository.updateActionTypeByCancel(CANCEL, getCurrentLocalDateTime(), orderId, memberId, usedPointIds);
     }
 
 }

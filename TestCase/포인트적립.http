@@ -1,5 +1,5 @@
 # 포인트 적립
-POST http://localhost:8080/SAVE/point
+POST http://{{local}}/SAVE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -13,7 +13,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 적립
-POST http://localhost:8080/SAVE/point
+POST http://{{local}}/SAVE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -26,7 +26,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 적립
-POST http://localhost:8080/SAVE/point
+POST http://{{local}}/SAVE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -39,7 +39,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 적립
-POST http://localhost:8080/SAVE/point
+POST http://{{local}}/SAVE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8

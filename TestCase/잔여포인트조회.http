@@ -1,0 +1,23 @@
+### 회원 111
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 회원 222
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 222
+
+### 회원 333
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 333
+
+### 회원 3444
+# 포인트 조회
+GET http://{{local}}/remaining-point
+Accept: application/json;charset=UTF-8
+memberId: 3444

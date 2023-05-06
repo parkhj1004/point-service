@@ -11,13 +11,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "pointLog")
+@Table(name = "pointLog",
+        indexes={@Index(name = "idx_originPointId", columnList = "originPointId")}
+)
 public class PointLogEntity extends BaseEntity {
 
     @Id
@@ -25,7 +28,7 @@ public class PointLogEntity extends BaseEntity {
     private Long id;
 
     private Long usedPointId;
-    private Long orderId;
+    private Long originPointId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,7 +42,7 @@ public class PointLogEntity extends BaseEntity {
     public static PointLogEntity of(Long usedPointId, Long orderId, PointActionType pointActionType, Long point) {
         PointLogEntity entity = new PointLogEntity();
         entity.setUsedPointId(usedPointId);
-        entity.setOrderId(orderId);
+        entity.setOriginPointId(orderId);
         entity.setPointActionType(pointActionType);
         entity.setPoint(point);
 

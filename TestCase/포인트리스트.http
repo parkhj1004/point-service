@@ -1,0 +1,23 @@
+### 회원 111
+# 포인트 리스트
+GET http://{{local}}/points?pageNumber=1&sizePerPage=20
+Accept: application/json;charset=UTF-8
+memberId: 111
+
+### 회원 222
+# 포인트 리스트
+GET http://{{local}}/points?pageNumber=1&sizePerPage=20
+Accept: application/json;charset=UTF-8
+memberId: 222
+
+### 회원 333
+# 포인트 리스트
+GET http://{{local}}/points?pageNumber=1&sizePerPage=20
+Accept: application/json;charset=UTF-8
+memberId: 333
+
+### 회원 3444
+# 포인트 리스트
+GET http://{{local}}/points?pageNumber=1&sizePerPage=20
+Accept: application/json;charset=UTF-8
+memberId: 3444

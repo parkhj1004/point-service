@@ -1,7 +1,7 @@
 ###
 
 # 포인트 사용
-POST http://localhost:8080/USE/point
+POST http://{{local}}/USE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -14,7 +14,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 사용
-POST http://localhost:8080/USE/point
+POST http://{{local}}/USE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -27,7 +27,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 사용
-POST http://localhost:8080/USE/point
+POST http://{{local}}/USE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
@@ -40,7 +40,7 @@ Content-Type: application/json;charset=UTF-8
 ###
 
 # 포인트 사용
-POST http://localhost:8080/USE/point
+POST http://{{local}}/USE/point
 Accept: application/json;charset=UTF-8
 memberId: 3444
 Content-Type: application/json;charset=UTF-8
