@@ -22,8 +22,13 @@ public enum PointActionType {
     @Getter
     private final Class<? extends Integrator> integratorType;
     private final static EnumSet<PointActionType> PLUS = EnumSet.of(SAVE, CANCEL);
+    private final static EnumSet<PointActionType> POINT_ESSENTIAL = EnumSet.of(SAVE, USE);
 
     public static boolean isPlus(PointActionType pointActionType) {
         return PLUS.contains(pointActionType);
+    }
+
+    public static boolean isPointEssential(PointActionType pointActionType) {
+        return POINT_ESSENTIAL.contains(pointActionType);
     }
 }

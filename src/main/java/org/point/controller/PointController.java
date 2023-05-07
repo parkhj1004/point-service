@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.emptySet;
+import static org.point.meta.PointActionType.isPointEssential;
 import static org.point.meta.ResultCode.POINT_MINUS;
 import static org.point.meta.ResultCode.SERVER_ERROR;
 
@@ -55,7 +56,7 @@ public class PointController {
     public ResultDto savePoints(@RequestHeader(value = "memberId") Long memberId, @PathVariable(value = "pointActionType") PointActionType pointActionType, @RequestBody Point point) {
         point.setPointActionType(pointActionType);
         try {
-            if(pointMappingProvider.getIntegrator(pointActionType).checkPoint(point.getPoint())) {
+            if(isPointEssential(pointActionType) && pointMappingProvider.getIntegrator(pointActionType).checkPoint(point.getPoint())) {
                 return ResultDto.of(POINT_MINUS, point.getOrderId(), emptySet());
             }
 
