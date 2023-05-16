@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
@@ -20,7 +21,8 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "point",
-        uniqueConstraints={@UniqueConstraint(name = "u_memberId_orderId_type", columnNames = {"memberId", "orderId", "pointActionType"})}
+        uniqueConstraints={@UniqueConstraint(name = "u_memberId_orderId_type", columnNames = {"memberId", "orderId", "pointActionType"})},
+        indexes = {@Index(name = "idx_expirationDate", columnList = "expirationDate")}
 )
 public class PointEntity extends BaseEntity {
     @Id
